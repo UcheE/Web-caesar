@@ -27,9 +27,9 @@ def build_page(textarea_content):
 
     submit = "<input type='submit'/>"
     form = ("<form method='post'>" +
-            rot_label + rotation_input + "<br>"
-            message_label + textarea + "<br>"
-            + submit + "</form>")
+            rot_label + rotation_input + "<br>" +
+            message_label + textarea + "<br>" +
+            submit + "</form>")
 
     header = "<h2>Web Caesar</h2>"
 
@@ -39,15 +39,15 @@ def build_page(textarea_content):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        content = build_page(" ")
+        content = build_page("")
         self.response.write(content)
 
     def post(self):
         message = self.request.get("message")
         rotation = int(self.request.get("rotation"))
         encrypted_message = caesar.encrypt(message, rotation)
-        escaped_message = cgi.escape(encrypted_message)
-        content = build_page(escaped_message)
+        escape_message = cgi.escape(encrypted_message)
+        content = build_page(escape_message)
         self.response.write(content)
 
 app = webapp2.WSGIApplication([
